@@ -100,7 +100,7 @@ Tank& Game::FindClosestEnemy(Tank& current_tank)
     float closest_distance = numeric_limits<float>::infinity();
     int closest_index = 0;
 
-    if (current_tank.allignment == BLUE)
+    /*if (current_tank.allignment == BLUE)
     {
         for (int i = 1279; i < 2558; i++)
         {
@@ -129,9 +129,9 @@ Tank& Game::FindClosestEnemy(Tank& current_tank)
                 }
             }
         }
-	}
+	}*/
 
-	/*for (int i = 0; i < tanks.size(); i++)
+	for (int i = 0; i < tanks.size(); i++)
     {
         if (tanks.at(i).allignment != current_tank.allignment && tanks.at(i).active)
         {
@@ -142,7 +142,7 @@ Tank& Game::FindClosestEnemy(Tank& current_tank)
                 closest_index = i;
             }
         }
-    }*/
+    }
 
     return tanks.at(closest_index);
 }
@@ -324,28 +324,17 @@ void Tmpl8::Game::insertion_sort_tanks_health(const std::vector<Tank>& original,
     vector<Tank> test;
     for (int i = 0; i < NUM_TANKS; i++)
     {
-        test.push_back(original[i]);
+        test.push_back(original[i + begin]);
     }
 
-    //cout << begin << endl;
-    //cout << end << endl;
     quicksort(test, 0, NUM_TANKS);
 
-    for (int i = begin; i < end; i++)
+    for (int i = 0; i < NUM_TANKS; i++)
     {
-        //cout << i << endl;
-        //cout << "working" << endl;
-        Tank current = test[i - begin];
-        sorted_tanks.insert(sorted_tanks.begin() + i - begin, &current);
-        //sorted_tanks[i - begin] = &current;
+        const Tank& current = test.at(i);
+        sorted_tanks.insert(sorted_tanks.begin() + i, &current);
     }
-    /*
-    int left = 0;
-    int right = original.size();
 
-    if (left < right)
-    {
-    }*/
     /*for (int i = begin + 1; i < (begin + NUM_TANKS); i++)
     {
         const Tank& current_tank = original.at(i);
