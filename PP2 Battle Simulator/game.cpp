@@ -131,6 +131,19 @@ Tank& Game::FindClosestEnemy(Tank& current_tank)
         }
 	}
 
+	/*for (int i = 0; i < tanks.size(); i++)
+    {
+        if (tanks.at(i).allignment != current_tank.allignment && tanks.at(i).active)
+        {
+            float sqrDist = fabsf((tanks.at(i).Get_Position() - current_tank.Get_Position()).sqrLength());
+            if (sqrDist < closest_distance)
+            {
+                closest_distance = sqrDist;
+                closest_index = i;
+            }
+        }
+    }*/
+
     return tanks.at(closest_index);
 }
 
