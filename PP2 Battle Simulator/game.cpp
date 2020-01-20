@@ -2,6 +2,7 @@
 
 #define NUM_TANKS_BLUE 1279
 #define NUM_TANKS_RED 1279
+//2558
 
 #define TANK_MAX_HEALTH 1000
 #define ROCKET_HIT_VALUE 60
@@ -99,18 +100,36 @@ Tank& Game::FindClosestEnemy(Tank& current_tank)
     float closest_distance = numeric_limits<float>::infinity();
     int closest_index = 0;
 
-    for (int i = 0; i < tanks.size(); i++)
+    if (current_tank.allignment == BLUE)
     {
-        if (tanks.at(i).allignment != current_tank.allignment && tanks.at(i).active)
+        for (int i = 1279; i < 2558; i++)
         {
-            float sqrDist = fabsf((tanks.at(i).Get_Position() - current_tank.Get_Position()).sqrLength());
-            if (sqrDist < closest_distance)
+            if (tanks.at(i).allignment != current_tank.allignment && tanks.at(i).active)
             {
-                closest_distance = sqrDist;
-                closest_index = i;
+                float sqrDist = fabsf((tanks.at(i).Get_Position() - current_tank.Get_Position()).sqrLength());
+                if (sqrDist < closest_distance)
+                {
+                    closest_distance = sqrDist;
+                    closest_index = i;
+                }
             }
         }
     }
+    else if (current_tank.allignment == RED)
+    {
+        for (int i = 0; i < 1279; i++)
+        {
+            if (tanks.at(i).allignment != current_tank.allignment && tanks.at(i).active)
+            {
+                float sqrDist = fabsf((tanks.at(i).Get_Position() - current_tank.Get_Position()).sqrLength());
+                if (sqrDist < closest_distance)
+                {
+                    closest_distance = sqrDist;
+                    closest_index = i;
+                }
+            }
+        }
+	}
 
     return tanks.at(closest_index);
 }
@@ -295,7 +314,7 @@ void Tmpl8::Game::insertion_sort_tanks_health(const std::vector<Tank>& original,
         test.push_back(original[i]);
     }
 
-	//cout << begin << endl;
+    //cout << begin << endl;
     //cout << end << endl;
     quicksort(test, 0, NUM_TANKS);
 
@@ -305,8 +324,9 @@ void Tmpl8::Game::insertion_sort_tanks_health(const std::vector<Tank>& original,
         //cout << "working" << endl;
         Tank current = test[i - begin];
         sorted_tanks.insert(sorted_tanks.begin() + i - begin, &current);
+        //sorted_tanks[i - begin] = &current;
     }
-/*
+    /*
     int left = 0;
     int right = original.size();
 
